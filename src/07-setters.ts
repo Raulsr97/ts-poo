@@ -1,18 +1,17 @@
-// Getters
-// Con get podemos acceder a una propiedad con un alcance privado, podemos obtener los datos de esa propiedad pero no podemos modificarlos o mutarlos.
-// Los podemos acceder como si fueran una propiedad más de la instancia.
-// Por definición todos los getters deben retornar algo.
+// Setters: Una forma de modificar atributos.
+// Set: Metodo void(no retorna nada), lo podemos usar para tener reglas de modificación para nuestros atributos.
+
 
 export class MyDate {
   constructor(
     public year: number = 1997,
-    public month: number = 11,
+    private _month: number = 11,
     private _day: number = 13
   ) {}
 
   printFormat(): string {
     let day = this.addPadding(this._day)
-    let month = this.addPadding(this.month)
+    let month = this.addPadding(this._month)
     return `${day}/${month}/${this.year}`
   }
 
@@ -29,7 +28,7 @@ export class MyDate {
       this._day += amount
     }
     if(type === 'months') {
-      this.month += amount
+      this._month += amount
     }
     if(type === 'years') {
       this.year += amount
@@ -43,18 +42,27 @@ export class MyDate {
   get isLeapYear(): boolean {
     return  (this.year % 4 === 0 && (this.year % 100 !== 0 || this.year % 400 === 0));
   }
+
+  get month() {
+    return this._month
+  }
+
+  set month(newValue: number) {
+    if(newValue >= 1 && newValue <= 12) {
+      this._month = newValue
+    } else {
+      throw new Error('month out of range')
+    }
+  }
 }
 
 const myDate = new MyDate(1997, 4, 3)
 console.log(myDate.printFormat());
-console.log(myDate.day);
-console.log('1997', myDate.isLeapYear);
+myDate.month = 12
+console.log(myDate.month)
 
-const myDate2 = new MyDate(2000, 4, 3)
-console.log('2000', myDate2.isLeapYear);
 
-const myDate3 = new MyDate(2024, 4, 3)
-console.log('2024', myDate3.isLeapYear);
+
 
 
 
