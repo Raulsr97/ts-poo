@@ -1,7 +1,7 @@
 // Protected: modificador de acceso que permite que los atributos y metodos sean accesibles dentro de la clases Padre y las clases hija pero restringiendo el uso fuera de las mismas
 
 
-export class Animal {
+export abstract class Animal {
   constructor (protected name: string) {}
 
   // Métodos
